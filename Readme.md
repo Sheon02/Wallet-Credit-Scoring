@@ -1,13 +1,16 @@
-# Wallet Credit Scoring System
+# 💳 Wallet Credit Scoring System
 
 ## 📌 Overview
-I built this machine learning system to analyze wallet transactions on Aave V2 and assign credit scores (0-1000) based on transaction behavior. Higher scores indicate trustworthy wallets, while lower scores flag potentially risky behavior.
+
+I built this machine learning system to analyze wallet transactions on Aave V2 and assign credit scores (0–1000) based on transaction behavior. Higher scores indicate trustworthy wallets, while lower scores flag potentially risky behavior.
+
+---
 
 ## 🛠 How It Works
-Here's exactly what my code does:
 
 ### 1. Data Loading
-- Takes raw JSON transaction data (like the sample you provided)
+
+- Takes raw JSON transaction data (like the sample provided)
 - Normalizes nested JSON structure using `pd.json_normalize()`
 - Renames columns to match expected format:
   - `userWallet` → `user`
@@ -15,50 +18,70 @@ Here's exactly what my code does:
   - `actionData.amount` → `amount`
 
 ### 2. Feature Engineering
-I extract these key features from transaction data:
-- **Transaction Patterns**:
-  - `tx_count`: Total transactions
-  - `tx_freq`: Average time between transactions
-  - `tx_burstiness`: Measures irregular timing patterns
 
-- **Financial Behavior**:
-  - `deposit_ratio`: % of deposits vs other actions
-  - `borrow_ratio`: % of borrows
-  - `liquidations`: Count of liquidation events
+The system extracts key features from transaction data:
 
-- **Amount Analysis**:
-  - `avg_amount`: Mean transaction size
-  - `amount_std`: Amount volatility
-  - `total_volume`: Sum of all transactions
+#### 📊 Transaction Patterns
+
+- `tx_count`: Total transactions  
+- `tx_freq`: Average time between transactions  
+- `tx_burstiness`: Measures irregular timing patterns  
+
+#### 💰 Financial Behavior
+
+- `deposit_ratio`: % of deposits vs other actions  
+- `borrow_ratio`: % of borrows  
+- `liquidations`: Count of liquidation events  
+
+#### 💵 Amount Analysis
+
+- `avg_amount`: Mean transaction size  
+- `amount_std`: Amount volatility  
+- `total_volume`: Sum of all transactions  
 
 ### 3. Credit Scoring
+
 - Uses **Isolation Forest** algorithm to detect anomalous behavior
-- Scores range 0-1000:
-  - `800-1000`: Regular, human-like patterns
-  - `400-800`: Somewhat irregular
-  - `0-400`: Likely bots/exploits
+- Scores range from 0 to 1000:
+  - **800–1000**: Regular, human-like patterns
+  - **400–800**: Somewhat irregular
+  - **0–400**: Likely bots or exploit behavior
+
+---
 
 ## 🚀 How to Run It
-Here's exactly what you need to do:
 
- 1. **Install requirements**:
+Follow these steps to use the scoring system:
+
+1. **Install requirements**:
    ```bash
    pip install -r requirements.txt
- 2. **Run the scoring**:
+Run the scoring:
 
-    python Model.py user-wallet-transactions.json
- 3. **Output files will be created in /output**:
-    create a folder named "output", if not automatically created
+bash
+Copy
+Edit
+python Model.py user-wallet-transactions.json
+Check output in /output/ folder:
+If not automatically created, run:
 
-    wallet_scores.csv: All wallet scores
+bash
+Copy
+Edit
+mkdir output
+Output files:
+wallet_scores.csv: Wallet address and scores
 
-    score_distribution.png: Visualization
+score_distribution.png: Visualization of score distribution
 
-    analysis.md: Summary report
+analysis.md: Summary report
 
-## 📂 Sample JSON Structure
-The system expects transactions in this format:
+📂 Sample JSON Structure
+The input transaction file should contain entries like:
 
+json
+Copy
+Edit
 {
   "userWallet": "0x000...",
   "timestamp": 1629178166,
@@ -68,45 +91,58 @@ The system expects transactions in this format:
     "type": "Deposit"
   }
 }
-## 🔍 Key Technical Details
-Algorithm Choice: Isolation Forest works well for:
+🔍 Key Technical Details
+Algorithm Choice
+Isolation Forest is ideal for:
 
 High-dimensional transaction data
 
-Detecting anomalous patterns
+Anomaly detection
 
-Requires no labeled data
+No need for labeled training data
 
-Score Interpretation:
+Score Interpretation
+These are relative scores (not absolute probabilities)
 
-Not absolute probabilities
+Lower scores = more deviation from normal behavior
 
-Relative rankings within the dataset
+Use thresholds to segment users by risk
 
-Lower scores = more deviation from "normal" patterns
-
-## 🛠 Troubleshooting
-If you hit issues:
-
+🛠 Troubleshooting
 "No such file" error
-# Make sure the output directory exists
+Make sure the output directory exists:
+
+bash
+Copy
+Edit
 mkdir output
-Git push problems
-# If getting branch errors:
+Git push errors
+If you're getting branch errors:
+
+bash
+Copy
+Edit
 git branch -m master main
 git push -u origin main
-## 📈 Sample Output
-https://output/score_distribution.png
-![Credit Score Distribution](output/score_distribution.png)
+📈 Sample Output
+
+
 Mean score: 682.42
-(800-1000]: 187 wallets - Responsible users
-(400-800]: 2419 wallets - Moderate risk
-[0-400]: 891 wallets - High risk
-## 🤝 Contributing
+
+Score Range	Interpretation	Wallets
+800–1000	Responsible users	187
+400–800	Moderate risk	2419
+0–400	High risk	891
+
+🤝 Contributing
 Feel free to:
 
 Report issues
 
-Suggest feature improvements
+Suggest improvements
 
-Fork and modify for your needs
+Fork and adapt for your needs
+
+javascript
+Copy
+Edit
