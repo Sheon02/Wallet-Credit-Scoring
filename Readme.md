@@ -1,13 +1,16 @@
-# Wallet Credit Scoring System
+# 💳 Wallet Credit Scoring System
 
 ## 📌 Overview
-I built this machine learning system to analyze wallet transactions on Aave V2 and assign credit scores (0-1000) based on transaction behavior. Higher scores indicate trustworthy wallets, while lower scores flag potentially risky behavior.
+
+I built this machine learning system to analyze wallet transactions on Aave V2 and assign credit scores (0–1000) based on transaction behavior. Higher scores indicate trustworthy wallets, while lower scores flag potentially risky behavior.
+
+---
 
 ## 🛠 How It Works
-Here's exactly what my code does:
 
 ### 1. Data Loading
-- Takes raw JSON transaction data (like the sample you provided)
+
+- Takes raw JSON transaction data (like the sample provided)
 - Normalizes nested JSON structure using `pd.json_normalize()`
 - Renames columns to match expected format:
   - `userWallet` → `user`
@@ -15,33 +18,42 @@ Here's exactly what my code does:
   - `actionData.amount` → `amount`
 
 ### 2. Feature Engineering
-I extract these key features from transaction data:
-- **Transaction Patterns**:
-  - `tx_count`: Total transactions
-  - `tx_freq`: Average time between transactions
-  - `tx_burstiness`: Measures irregular timing patterns
 
-- **Financial Behavior**:
-  - `deposit_ratio`: % of deposits vs other actions
-  - `borrow_ratio`: % of borrows
-  - `liquidations`: Count of liquidation events
+The system extracts key features from transaction data:
 
-- **Amount Analysis**:
-  - `avg_amount`: Mean transaction size
-  - `amount_std`: Amount volatility
-  - `total_volume`: Sum of all transactions
+#### 📊 Transaction Patterns
+
+- `tx_count`: Total transactions  
+- `tx_freq`: Average time between transactions  
+- `tx_burstiness`: Measures irregular timing patterns  
+
+#### 💰 Financial Behavior
+
+- `deposit_ratio`: % of deposits vs other actions  
+- `borrow_ratio`: % of borrows  
+- `liquidations`: Count of liquidation events  
+
+#### 💵 Amount Analysis
+
+- `avg_amount`: Mean transaction size  
+- `amount_std`: Amount volatility  
+- `total_volume`: Sum of all transactions  
 
 ### 3. Credit Scoring
+
 - Uses **Isolation Forest** algorithm to detect anomalous behavior
-- Scores range 0-1000:
-  - `800-1000`: Regular, human-like patterns
-  - `400-800`: Somewhat irregular
-  - `0-400`: Likely bots/exploits
+- Scores range from 0 to 1000:
+  - **800–1000**: Regular, human-like patterns
+  - **400–800**: Somewhat irregular
+  - **0–400**: Likely bots or exploit behavior
+
+---
 
 ## 🚀 How to Run It
-Here's exactly what you need to do:
 
- 1. **Install requirements**:
+Follow these steps to use the scoring system:
+
+1. **Install requirements**:
    ```bash
    pip install -r requirements.txt
    ```
@@ -56,7 +68,7 @@ Here's exactly what you need to do:
 
     score_distribution.png: Visualization
 
-    analysis.md: Summary report
+analysis.md: Summary report
 
 ## 📂 Sample JSON Structure
 The system expects transactions in this format:
