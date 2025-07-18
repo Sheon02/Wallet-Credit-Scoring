@@ -68,7 +68,7 @@ Follow these steps to use the scoring system:
 
     score_distribution.png: Visualization
 
-analysis.md: Summary report
+    analysis.md: Summary report
 
 ## 📂 Sample JSON Structure
 The system expects transactions in this format:
