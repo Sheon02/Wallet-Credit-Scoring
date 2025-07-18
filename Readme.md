@@ -44,9 +44,11 @@ Here's exactly what you need to do:
  1. **Install requirements**:
    ```bash
    pip install -r requirements.txt
+   ```
  2. **Run the scoring**:
-
+    ```bash
     python Model.py user-wallet-transactions.json
+    ```
  3. **Output files will be created in /output**:
     create a folder named "output", if not automatically created
 
@@ -58,43 +60,48 @@ Here's exactly what you need to do:
 
 ## 📂 Sample JSON Structure
 The system expects transactions in this format:
-
-{
-  "userWallet": "0x000...",
-  "timestamp": 1629178166,
-  "action": "deposit",
-  "actionData": {
-    "amount": "2000000000",
-    "type": "Deposit"
-  }
-}
+    ```bash
+    {
+    "userWallet": "0x000...",
+    "timestamp": 1629178166,
+    "action": "deposit",
+    "actionData": {
+        "amount": "2000000000",
+        "type": "Deposit"
+    }
+    }
+    ```
 ## 🔍 Key Technical Details
 Algorithm Choice: Isolation Forest works well for:
 
-High-dimensional transaction data
+-High-dimensional transaction data
 
-Detecting anomalous patterns
+-Detecting anomalous patterns
 
-Requires no labeled data
+-Requires no labeled data
 
-Score Interpretation:
+-Score Interpretation:
 
-Not absolute probabilities
+-Not absolute probabilities
 
-Relative rankings within the dataset
+-Relative rankings within the dataset
 
-Lower scores = more deviation from "normal" patterns
+-Lower scores = more deviation from "normal" patterns
 
 ## 🛠 Troubleshooting
 If you hit issues:
 
 "No such file" error
 # Make sure the output directory exists
-mkdir output
-Git push problems
+    ```bash
+    mkdir output
+    Git push problems
+    ```
 # If getting branch errors:
-git branch -m master main
-git push -u origin main
+    ```bash
+    git branch -m master main
+    git push -u origin main
+    ```
 ## 📈 Sample Output
 https://output/score_distribution.png
 ![Credit Score Distribution](output/score_distribution.png)
@@ -103,10 +110,10 @@ Mean score: 682.42
 (400-800]: 2419 wallets - Moderate risk
 [0-400]: 891 wallets - High risk
 ## 🤝 Contributing
-Feel free to:
+-Feel free to:
 
-Report issues
+-Report issues
 
-Suggest feature improvements
+-Suggest feature improvements
 
-Fork and modify for your needs
+-Fork and modify for your needs
